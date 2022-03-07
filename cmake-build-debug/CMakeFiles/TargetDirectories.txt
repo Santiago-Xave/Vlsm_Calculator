@@ -1,0 +1,3 @@
+C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/cmake-build-debug/CMakeFiles/Calculadora.dir
+C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/cmake-build-debug/CMakeFiles/rebuild_cache.dir

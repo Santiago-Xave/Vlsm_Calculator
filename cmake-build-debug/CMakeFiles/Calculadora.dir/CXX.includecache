@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/main.cpp
+iostream
+-
+string.h
+-
+string
+-
+
