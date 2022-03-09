@@ -3,17 +3,30 @@
 #include <string>
 
 using namespace std;
-char Octeto[10][10];
-void Convert(char* dir){
+char Octeto[4][8];
+
+void MakeBin() {
+    int dir[4],DirBin[4][8];
+    for (int i = 0; i < 4; i++) {
+    dir[i]= stoi(Octeto[i]);
+    }
+    for(int i=0;i<8;i++){
+        DirBin[i][];
+    }
+}
+
+void Convert(char *dir) {
     char *tok;
-    int i=0;
+    int i = 0;
     tok = strtok(dir, ".");
     while (tok != NULL) {
-        strcpy(Octeto[i++],tok);
+        strcpy(Octeto[i++], tok);
         tok = strtok(NULL, ".");
     }
 }
+
 bool Verify(char *dir) {
+
     return true;
 }
 

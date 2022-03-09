@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/main.cpp" "C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Calculadora/cmake-build-debug/CMakeFiles/Calculadora.dir/main.cpp.obj"
+  "C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Vlsm_Calculator/main.cpp" "C:/Users/santi/OneDrive/Escritorio/U-SANTI/Semestre 5/Redes/Vlsm_Calculator/cmake-build-debug/CMakeFiles/Calculadora.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
