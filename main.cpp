@@ -41,14 +41,16 @@ void Order(int Hosts[], int CantH) {
     }
 }
 
-void Convert(char *dir) {
+int Convert(char *dir) {
     char *tok;
-    int i = 0;
+    int i = 0, conta = 0;
     tok = strtok(dir, ".");
     while (tok != NULL) {
         strcpy(Octeto[i++], tok);
         tok = strtok(NULL, ".");
+        conta++;
     }
+    return conta;
 }
 
 void BitsHost(int Hosts[], int Cant, float bits[]) {
@@ -134,7 +136,11 @@ void Intro() {
     cout << "\t\t\t CALCULADORA DE VLSM (SUBNETING)\n";
     cout << "\t\tIngresa la direcion de red que deseas usar:\n";
     cin.getline(address.dir, 32, '\n');
-    Convert(address.dir);
+    int Ver = Convert(address.dir);
+    if (Ver != 4){
+        cout<<"Cantidad de datos invalida.\n";
+        return;
+    }
     MakeBin(address.DirBin);
     cout << "\t\tIngresa la mascara de la direccion ip que deseas usar(En decimal):\n";
     cin >> address.mascara;
