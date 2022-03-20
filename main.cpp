@@ -71,64 +71,42 @@ bool SubnetB(float bits[], int Cant, int bitsRed[]) {
     return true;
 }
 
-int OctetoF(int mascara[]) {
-    int OctetoNull;
-    int S = 0;
-    for (int i = 0; i < 32; i++) {
-        if (mascara[i] != 1) {
-            OctetoNull = (i / 8);
-            break;
-        }
-    }
-    int j = ((OctetoNull + 1) * 8) - 1;
-    for (int i = 0; i < 8; i++) {
-        if (mascara[j--] == 1) {
-            S += pow(2, i);
-        }
-    }
-    return 256 - S;
-}
-
-void Bin_Dec(int Bin[]) {
-    int octeto[4] = {0};
+void Bin_Dec(int Bin[], int Dec[]) {
     int j = 0;
     for (int i = 0, k = 31; i < 32; i++, k--) {
         if (i % 8 == 0 && i != 0)
             j++;
         if (Bin[i] == 1) {
-            octeto[j] += pow(2, k % 8);
+            Dec[j] += pow(2, k % 8);
         }
-    }
-    for (int i = 0; i < 4; i++) {
-        Bin[i] = octeto[i];
     }
 }
 
 void CalculoSub(int Cant, int MaskSubnet[], int Hosts[]) {
-    int copiaMascara[32];
-    for (int i = 0; i < 32; i++)
-        copiaMascara[i] = address.DirBin[i];
-
-    Bin_Dec(copiaMascara);
+    int Octetos[4] = {0};
+    Bin_Dec(address.DirBin, Octetos);
     cout << "\t\tSubred.\t\tHost\t\t\tDireccion de red." << endl;
     for (int i = 0; i < Cant; i++) {
-        if (i == 0) {
-            for (int j = 0; j < Hosts[i]; j++) {
-                cout << "\t\t" << i + 1 << "\t\t" << j + 1 << "\t\t\t";
-                for (int k = 0; k < 3; k++) {
-                    cout << copiaMascara[k] << ".";
-                }
-                cout << ++copiaMascara[3] << endl;
+        for (int j = 0; j < Hosts[i]; j++) {
+            if (Octetos[3] == 256) {
+                Octetos[3] = 0;
+                Octetos[2]++;
             }
-        } else {
-            cout << "\t\t" << i + 1;
-            for (int j = 0; j < Hosts[i]; j++) {
-                cout << "\t\t" << j + 1;
-                for (int k = 0; k < 32; k++) {
-
-                }
+            if (Octetos[2] == 256) {
+                Octetos[2] = 0;
+                Octetos[1]++;
             }
+            if (Octetos[1] == 256) {
+                Octetos[1] = 0;
+                Octetos[0]++;
+            }
+            cout << "\t\t" << i + 1 << "\t\t" << j + 1 << "\t\t\t";
+            for (int k = 0; k < 3; k++) {
+                cout << Octetos[k] << ".";
+            }
+            cout <<Octetos[3]++<< "/" << MaskSubnet[i]<< endl;
         }
+
     }
 }
 
@@ -137,8 +115,8 @@ void Intro() {
     cout << "\t\tIngresa la direcion de red que deseas usar:\n";
     cin.getline(address.dir, 32, '\n');
     int Ver = Convert(address.dir);
-    if (Ver != 4){
-        cout<<"Cantidad de datos invalida.\n";
+    if (Ver != 4) {
+        cout << "Cantidad de datos invalida.\n";
         return;
     }
     MakeBin(address.DirBin);
@@ -146,6 +124,11 @@ void Intro() {
     cin >> address.mascara;
     for (int i = 0; i < address.mascara; i++)
         address.BinMaks[i] = 1;
+    for (int i = 0; i < 32; i++) {
+        if (address.BinMaks[i] == 0) {
+            address.DirBin[i] = 0;
+        }
+    }
     cout << "\t\tIngresa el Numero de redes:\n";
     cin >> address.Subredes;
     int *hosts = new int[address.Subredes];//numero de host por red
@@ -159,12 +142,19 @@ void Intro() {
     }
     Order(hosts, address.Subredes);
     BitsHost(hosts, address.Subredes, Hbits);
+    for (int i = 0; i < address.Subredes; i++) {
+        hosts[i]=pow(2,Hbits[i]);
+    }
     if (!SubnetB(Hbits, address.Subredes, RedBits)) {
         return;
     }
-    for (int i = 0; i < address.Subredes; i++)
+    for (int i = 0; i < address.Subredes; i++) {
         MaskSubnet[i] = address.mascara + RedBits[i];
+    }
+
     CalculoSub(address.Subredes, MaskSubnet, hosts);
+
+
     delete[] RedBits;
     delete[] MaskSubnet;
     delete[] Hbits;
